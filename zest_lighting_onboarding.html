@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zest Lighting — Employee Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #996D00;
+    --gold-light: #C8A96E;
+    --black: #1A1A1A;
+    --dark: #2D2D2D;
+    --grey: #6B6B6B;
+    --border: #E0D9CE;
+    --bg: #FAF8F5;
+    --white: #FFFFFF;
+    --error: #C0392B;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    min-height: 100vh;
+    padding: 0 0 80px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--black);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .header-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+  .header-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+  .header-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 300;
+  }
+
+  /* ── Progress bar ── */
+  .progress-bar {
+    height: 3px;
+    background: #2D2D2D;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── Section intro ── */
+  .section-intro {
+    padding: 48px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--grey);
+    max-width: 540px;
+  }
+
+  /* ── Form fields ── */
+  .form-section { display: none; }
+  .form-section.active { display: block; }
+
+  .field-group {
+    margin-bottom: 28px;
+  }
+  .field-label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .field-label .req {
+    color: var(--gold);
+    margin-left: 2px;
+  }
+  .field-input, .field-select, .field-textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid var(--border);
+    background: transparent;
+    padding: 10px 0;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  .field-input:focus, .field-select:focus, .field-textarea:focus {
+    border-bottom-color: var(--gold);
+  }
+  .field-input::placeholder { color: #BBBBBB; }
+  .field-textarea {
+    resize: none;
+    height: 80px;
+  }
+  .field-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23996D00' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    padding-right: 24px;
+    cursor: pointer;
+  }
+  .field-select option { color: var(--dark); }
+
+  /* Radio / Checkbox groups */
+  .radio-group, .check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .radio-option, .check-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--dark);
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .radio-option:hover, .check-option:hover {
+    border-color: var(--gold-light);
+    background: rgba(153, 109, 0, 0.03);
+  }
+  .radio-option input, .check-option input { display: none; }
+  .radio-option.selected, .check-option.selected {
+    border-color: var(--gold);
+    background: rgba(153, 109, 0, 0.06);
+  }
+  .custom-radio, .custom-check {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 0.2s;
+  }
+  .custom-check { border-radius: 2px; }
+  .selected .custom-radio, .selected .custom-check {
+    border-color: var(--gold);
+  }
+  .custom-radio::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: none;
+  }
+  .selected .custom-radio::after { display: block; }
+  .custom-check::after {
+    content: '';
+    width: 9px;
+    height: 5px;
+    border-left: 1.5px solid var(--gold);
+    border-bottom: 1.5px solid var(--gold);
+    transform: rotate(-45deg) translateY(-1px);
+    display: none;
+  }
+  .selected .custom-check::after { display: block; }
+
+  /* Two column layout */
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* ── Rules box ── */
+  .rules-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    border-radius: 0 2px 2px 0;
+  }
+  .rules-box ol {
+    list-style: none;
+    counter-reset: rule;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .rules-box ol li {
+    counter-increment: rule;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--dark);
+  }
+  .rules-box ol li::before {
+    content: counter(rule);
+    min-width: 22px;
+    height: 22px;
+    background: var(--gold);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Checkbox acknowledge */
+  .ack-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    cursor: pointer;
+    margin-bottom: 28px;
+    transition: border-color 0.2s;
+  }
+  .ack-wrap:hover { border-color: var(--gold-light); }
+  .ack-wrap.checked { border-color: var(--gold); background: rgba(153,109,0,0.04); }
+  .ack-box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+  }
+  .ack-wrap.checked .ack-box { border-color: var(--gold); }
+  .ack-box::after {
+    content: '';
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(-45deg) translateY(-1px);
+    display: none;
+  }
+  .ack-wrap.checked .ack-box::after { display: block; }
+  .ack-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--grey);
+  }
+
+  /* ── App cards ── */
+  .apps-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .app-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    transition: border-color 0.2s;
+  }
+  .app-card:hover { border-color: var(--gold-light); }
+  .app-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .app-info { flex: 1; }
+  .app-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 3px;
+    letter-spacing: 0.3px;
+  }
+  .app-desc {
+    font-size: 12px;
+    color: var(--grey);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .app-link {
+    font-size: 11px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .app-link:hover { border-bottom-color: var(--gold); }
+  .app-check {
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .app-card.done .app-check {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .app-check::after {
+    content: '';
+    width: 9px;
+    height: 5px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg) translateY(-1px);
+    display: none;
+  }
+  .app-card.done .app-check::after { display: block; }
+
+  /* ── Navigation buttons ── */
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 14px 32px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: white;
+  }
+  .btn-primary:hover { background: #7A5700; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--grey);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-submit {
+    background: var(--black);
+    color: white;
+  }
+  .btn-submit:hover { background: var(--gold); }
+
+  /* Step dots */
+  .step-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .step-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: all 0.3s;
+  }
+  .step-dot.active {
+    background: var(--gold);
+    width: 24px;
+    border-radius: 4px;
+  }
+  .step-dot.done { background: var(--gold-light); }
+
+  /* ── Success ── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 80px 24px;
+  }
+  .success-screen.show { display: block; }
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 28px;
+  }
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+  .success-desc {
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.8;
+  }
+
+  /* Field error */
+  .field-error {
+    font-size: 11px;
+    color: var(--error);
+    margin-top: 5px;
+    display: none;
+  }
+  .field-group.has-error .field-input,
+  .field-group.has-error .field-select,
+  .field-group.has-error .field-textarea {
+    border-bottom-color: var(--error);
+  }
+  .field-group.has-error .field-error { display: block; }
+
+  @media (max-width: 480px) {
+    .field-row { grid-template-columns: 1fr; }
+    .header { padding: 20px 20px; }
+    .section-title { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-logo">Zest Lighting</div>
+  <div class="header-divider"></div>
+  <div class="header-sub">New Team Member</div>
+</div>
+
+<!-- Progress -->
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill" style="width: 33%"></div>
+</div>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 1 — Personal Details              -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="form-section active" id="section1">
+    <div class="section-intro">
+      <div class="section-label">Section 1 of 3 &nbsp;·&nbsp; Personal Details</div>
+      <div class="section-title">Welcome to the team!</div>
+      <div class="section-desc">We're excited to have you on board. Please fill in your details below so we can get everything set up for you. Let us know if you have any questions along the way.</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group" id="fg-fullname">
+        <label class="field-label">Full Name <span class="req">*</span></label>
+        <input class="field-input" id="fullname" type="text" placeholder="Your full name" required>
+        <div class="field-error">Please enter your full name</div>
+      </div>
+      <div class="field-group" id="fg-preferred">
+        <label class="field-label">Preferred Name / Nickname</label>
+        <input class="field-input" id="preferred" type="text" placeholder="What should we call you?">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group" id="fg-dob">
+        <label class="field-label">Date of Birth <span class="req">*</span></label>
+        <input class="field-input" id="dob" type="date" required>
+        <div class="field-error">Please enter your date of birth</div>
+      </div>
+      </div>
+
+    <div class="field-group" id="fg-gender">
+      <label class="field-label">Gender <span class="req">*</span></label>
+      <div class="radio-group" id="gender-group">
+        <label class="radio-option" onclick="selectRadio(this,'gender-group')">
+          <input type="radio" name="gender" value="Female">
+          <div class="custom-radio"></div> Female
+        </label>
+        <label class="radio-option" onclick="selectRadio(this,'gender-group')">
+          <input type="radio" name="gender" value="Male">
+          <div class="custom-radio"></div> Male
+        </label>
+        <label class="radio-option" onclick="selectRadio(this,'gender-group')">
+          <input type="radio" name="gender" value="Prefer not to say">
+          <div class="custom-radio"></div> Prefer not to say
+        </label>
+      </div>
+      <div class="field-error" id="gender-error">Please select a gender</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group" id="fg-phone">
+        <label class="field-label">Phone Number <span class="req">*</span></label>
+        <input class="field-input" id="phone" type="tel" placeholder="+63 XXX XXX XXXX" required>
+        <div class="field-error">Please enter your phone number</div>
+      </div>
+      <div class="field-group" id="fg-email">
+        <label class="field-label">Email Address <span class="req">*</span></label>
+        <input class="field-input" id="email" type="email" placeholder="your@email.com" required>
+        <div class="field-error">Please enter a valid email</div>
+      </div>
+    </div>
+
+    <div class="field-group" id="fg-address">
+      <label class="field-label">Home Address <span class="req">*</span></label>
+      <input class="field-input" id="address" type="text" placeholder="Street, City, Province, Country" required>
+      <div class="field-error">Please enter your address</div>
+    </div>
+
+    <div class="field-group" id="fg-emergency">
+      <label class="field-label">Emergency Contact Name & Number <span class="req">*</span></label>
+      <input class="field-input" id="emergency" type="text" placeholder="Full name — +63 XXX XXX XXXX" required>
+      <div class="field-error">Please enter an emergency contact</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group" id="fg-startdate">
+        <label class="field-label">Start Date <span class="req">*</span></label>
+        <input class="field-input" id="startdate" type="date" required>
+        <div class="field-error">Please select a start date</div>
+      </div>
+      <div class="field-group" id="fg-hours">
+        <label class="field-label">Employment Type <span class="req">*</span></label>
+        <select class="field-select" id="hours" required>
+          <option value="" disabled selected>Select type</option>
+          <option value="Part-time (4hrs/day)">Part-time (4 hrs/day)</option>
+          <option value="Full-time">Full-time</option>
+        </select>
+        <div class="field-error">Please select employment type</div>
+      </div>
+    </div>
+
+    <div class="field-group" id="fg-timezone">
+      <label class="field-label">Time Zone Confirmation <span class="req">*</span></label>
+      <div class="radio-group" id="timezone-group">
+        <label class="radio-option" onclick="selectRadio(this,'timezone-group')">
+          <input type="radio" name="timezone" value="Yes — I confirm I will work Sydney time (AEST/AEDT)">
+          <div class="custom-radio"></div> Yes — I confirm I will be available during Sydney business hours (AEST/AEDT)
+        </label>
+        <label class="radio-option" onclick="selectRadio(this,'timezone-group')">
+          <input type="radio" name="timezone" value="No — I need to discuss my availability">
+          <div class="custom-radio"></div> No — I need to discuss my availability with my manager
+        </label>
+      </div>
+      <div class="field-error" id="timezone-error">Please confirm your time zone availability</div>
+    </div>
+
+    <div class="field-group" id="fg-payment">
+      <label class="field-label">Payment Frequency <span class="req">*</span></label>
+      <div class="radio-group" id="payment-group">
+        <label class="radio-option" onclick="selectRadio(this,'payment-group')">
+          <input type="radio" name="payment" value="Weekly">
+          <div class="custom-radio"></div> Weekly
+        </label>
+        <label class="radio-option" onclick="selectRadio(this,'payment-group')">
+          <input type="radio" name="payment" value="Fortnightly">
+          <div class="custom-radio"></div> Fortnightly
+        </label>
+        <label class="radio-option" onclick="selectRadio(this,'payment-group')">
+          <input type="radio" name="payment" value="Monthly">
+          <div class="custom-radio"></div> Monthly
+        </label>
+      </div>
+      <div class="field-error" id="payment-error">Please select payment frequency</div>
+    </div>
+
+    <div class="field-group" id="fg-paymethod">
+      <label class="field-label">Payment Method <span class="req">*</span></label>
+      <div class="radio-group" id="paymethod-group">
+        <label class="radio-option" onclick="selectRadio(this,'paymethod-group')">
+          <input type="radio" name="paymethod" value="Wise">
+          <div class="custom-radio"></div> Wise
+        </label>
+        <label class="radio-option" onclick="selectRadio(this,'paymethod-group')">
+          <input type="radio" name="paymethod" value="PayPal">
+          <div class="custom-radio"></div> PayPal
+        </label>
+        <label class="radio-option" onclick="selectRadio(this,'paymethod-group')">
+          <input type="radio" name="paymethod" value="Payoneer">
+          <div class="custom-radio"></div> Payoneer
+        </label>
+      </div>
+      <div class="field-error" id="paymethod-error">Please select a payment method</div>
+    </div>
+
+    <div class="field-group" id="fg-paydetails">
+      <label class="field-label">Payment Account Details <span class="req">*</span></label>
+      <input class="field-input" id="paydetails" type="text" placeholder="e.g. your email address or account ID for the selected platform" required>
+      <div class="field-error">Please enter your payment account details</div>
+    </div>
+
+    <div class="nav-bar">
+      <div class="step-dots">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+      <button class="btn btn-primary" onclick="goToSection(2)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 2 — Work Rules                    -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="form-section" id="section2">
+    <div class="section-intro">
+      <div class="section-label">Section 2 of 3 &nbsp;·&nbsp; Getting to Know Us</div>
+      <div class="section-title">How we work together</div>
+      <div class="section-desc">Before you start, please read through our work rules carefully. These help us stay aligned and communicate well as a team.</div>
+    </div>
+
+    <div class="rules-box">
+      <ol>
+        <li>Keep communication active during working hours — respond to messages promptly and let the team know you're available.</li>
+        <li>Keep the team updated on what task you are currently working on throughout the day.</li>
+        <li>At the end of each working day, submit a brief summary of what you have completed and report to your manager.</li>
+      </ol>
+    </div>
+
+    <label class="ack-wrap" id="ackWrap" onclick="toggleAck()">
+      <div class="ack-box" id="ackBox"></div>
+      <div class="ack-text">I have read and understood the work rules above, and I agree to follow them as part of my role at Zest Lighting.</div>
+    </label>
+    <div class="field-error" id="ack-error" style="margin-top:-20px; margin-bottom:20px;">Please acknowledge the work rules to continue</div>
+
+    <div class="field-group">
+      <label class="field-label">Any questions or comments?</label>
+      <textarea class="field-textarea" id="comments" placeholder="Optional — let us know if you have any questions about the work rules..."></textarea>
+    </div>
+
+    <div class="nav-bar">
+      <button class="btn btn-secondary" onclick="goToSection(1)">← Back</button>
+      <div class="step-dots">
+        <div class="step-dot done"></div>
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+      </div>
+      <button class="btn btn-primary" onclick="goToSection(3)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 3 — App Setup                     -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="form-section" id="section3">
+    <div class="section-intro">
+      <div class="section-label">Section 3 of 3 &nbsp;·&nbsp; Setting Up Your Apps</div>
+      <div class="section-title">Get set up & ready to go</div>
+      <div class="section-desc">You've been sent email invites to each app below. Please sign up and install them on both your phone and desktop. Tick each one as you complete it. Contact your manager if you haven't received any invites.</div>
+    </div>
+
+    <div class="apps-grid">
+      <div class="app-card" id="app-slack" onclick="toggleApp('app-slack')">
+        <div class="app-icon" style="background:#4A154B">💬</div>
+        <div class="app-info">
+          <div class="app-name">Slack — Team Communication</div>
+          <div class="app-desc">This is where we communicate as a team. Sign up and install on phone and desktop.</div>
+          <a href="https://slack.com" target="_blank" class="app-link" onclick="event.stopPropagation()">slack.com →</a>
+        </div>
+        <div class="app-check"></div>
+      </div>
+
+      <div class="app-card" id="app-asana" onclick="toggleApp('app-asana')">
+        <div class="app-icon" style="background:#F06A6A">✅</div>
+        <div class="app-info">
+          <div class="app-name">Asana — Task Management</div>
+          <div class="app-desc">Where we set up, assign, and track all tasks. Sign up and install on phone and desktop.</div>
+          <a href="https://asana.com" target="_blank" class="app-link" onclick="event.stopPropagation()">asana.com →</a>
+        </div>
+        <div class="app-check"></div>
+      </div>
+
+      <div class="app-card" id="app-front" onclick="toggleApp('app-front')">
+        <div class="app-icon" style="background:#1B3D6F">📧</div>
+        <div class="app-info">
+          <div class="app-name">Front — Email Management</div>
+          <div class="app-desc">Where we manage all customer emails. Sign up and install on phone and desktop.</div>
+          <a href="https://front.com" target="_blank" class="app-link" onclick="event.stopPropagation()">front.com →</a>
+        </div>
+        <div class="app-check"></div>
+      </div>
+
+      <div class="app-card" id="app-bigcommerce" onclick="toggleApp('app-bigcommerce')">
+        <div class="app-icon" style="background:#34313F">🛒</div>
+        <div class="app-info">
+          <div class="app-name">BigCommerce — Online Store</div>
+          <div class="app-desc">Our e-commerce platform where we manage the online store, orders, and products.</div>
+          <a href="https://bigcommerce.com" target="_blank" class="app-link" onclick="event.stopPropagation()">bigcommerce.com →</a>
+        </div>
+        <div class="app-check"></div>
+      </div>
+
+      <div class="app-card" id="app-lastpass" onclick="toggleApp('app-lastpass')">
+        <div class="app-icon" style="background:#CC0000">🔐</div>
+        <div class="app-info">
+          <div class="app-name">LastPass — Password Manager</div>
+          <div class="app-desc">Install the browser extension and sign up. This is where we securely share passwords.</div>
+          <a href="https://lastpass.com" target="_blank" class="app-link" onclick="event.stopPropagation()">lastpass.com →</a>
+        </div>
+        <div class="app-check"></div>
+      </div>
+
+      <div class="app-card" id="app-cin7" onclick="toggleApp('app-cin7')">
+        <div class="app-icon" style="background:#00897B">📦</div>
+        <div class="app-info">
+          <div class="app-name">Cin7 — Inventory Management</div>
+          <div class="app-desc">Where we manage inventory, process orders, and send quotations to customers.</div>
+          <a href="https://cin7.com" target="_blank" class="app-link" onclick="event.stopPropagation()">cin7.com →</a>
+        </div>
+        <div class="app-check"></div>
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="btn btn-secondary" onclick="goToSection(2)">← Back</button>
+      <div class="step-dots">
+        <div class="step-dot done"></div>
+        <div class="step-dot done"></div>
+        <div class="step-dot active"></div>
+      </div>
+      <button class="btn btn-submit" onclick="submitForm()">Submit ✓</button>
+    </div>
+  </div>
+
+  <!-- Success -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <div class="section-title success-title">You're all set!</div>
+    <p class="success-desc">
+      Thank you, <strong id="successName"></strong>.<br>
+      Your onboarding form has been submitted. We'll be in touch shortly with everything you need for your first day.<br><br>
+      Welcome to the Zest Lighting team 🎉
+    </p>
+  </div>
+
+</div>
+
+<script>
+  let ackChecked = false;
+
+  function selectRadio(el, groupId) {
+    document.querySelectorAll(`#${groupId} .radio-option`).forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    el.querySelector('input').checked = true;
+  }
+
+  function toggleAck() {
+    ackChecked = !ackChecked;
+    document.getElementById('ackWrap').classList.toggle('checked', ackChecked);
+    if (ackChecked) document.getElementById('ack-error').style.display = 'none';
+  }
+
+  function toggleApp(id) {
+    document.getElementById(id).classList.toggle('done');
+  }
+
+  function goToSection(n) {
+    if (n === 2 && !validateSection1()) return;
+    if (n === 3 && !validateSection2()) return;
+
+    document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+    document.getElementById(`section${n}`).classList.add('active');
+
+    const pct = n === 1 ? 33 : n === 2 ? 66 : 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function validateSection1() {
+    let valid = true;
+
+    const required = [
+      { id: 'fullname',   fg: 'fg-fullname' },
+      { id: 'dob',        fg: 'fg-dob' },
+      { id: 'phone',      fg: 'fg-phone' },
+      { id: 'email',      fg: 'fg-email' },
+      { id: 'address',    fg: 'fg-address' },
+      { id: 'emergency',  fg: 'fg-emergency' },
+      { id: 'startdate',  fg: 'fg-startdate' },
+      { id: 'hours',      fg: 'fg-hours' },
+      { id: 'paydetails', fg: 'fg-paydetails' },
+    ];
+
+    required.forEach(({id, fg}) => {
+      const el = document.getElementById(id);
+      const fg_el = document.getElementById(fg);
+      if (!el.value.trim()) {
+        fg_el.classList.add('has-error');
+        valid = false;
+      } else {
+        fg_el.classList.remove('has-error');
+      }
+    });
+
+    // Gender
+    if (!document.querySelector('input[name="gender"]:checked')) {
+      document.getElementById('gender-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('gender-error').style.display = 'none';
+    }
+
+    // Payment frequency
+    if (!document.querySelector('input[name="payment"]:checked')) {
+      document.getElementById('payment-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('payment-error').style.display = 'none';
+    }
+
+    // Payment method
+    if (!document.querySelector('input[name="paymethod"]:checked')) {
+      document.getElementById('paymethod-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('paymethod-error').style.display = 'none';
+    }
+
+    // Timezone
+    if (!document.querySelector('input[name="timezone"]:checked')) {
+      document.getElementById('timezone-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('timezone-error').style.display = 'none';
+    }
+
+    if (!valid) window.scrollTo({ top: 0, behavior: 'smooth' });
+    return valid;
+  }
+
+  function validateSection2() {
+    if (!ackChecked) {
+      document.getElementById('ack-error').style.display = 'block';
+      return false;
+    }
+    return true;
+  }
+
+  async function submitForm() {
+    const name = document.getElementById('fullname').value || 'there';
+
+    // Gather all form data
+    const data = {
+      full_name:          document.getElementById('fullname').value,
+      date_of_birth:      document.getElementById('dob').value,
+      gender:             document.querySelector('input[name="gender"]:checked')?.value || '',
+      phone:              document.getElementById('phone').value,
+      email:              document.getElementById('email').value,
+      address:            document.getElementById('address').value,
+      emergency_contact:  document.getElementById('emergency').value,
+      start_date:         document.getElementById('startdate').value,
+      employment_type:    document.getElementById('hours').value,
+      payment_frequency:  document.querySelector('input[name="payment"]:checked')?.value || '',
+      preferred_name:     document.getElementById('preferred').value,
+      timezone_confirmed: document.querySelector('input[name="timezone"]:checked')?.value || '',
+      payment_method:     document.querySelector('input[name="paymethod"]:checked')?.value || '',
+      payment_details:    document.getElementById('paydetails').value,
+      comments:           document.getElementById('comments').value,
+      apps_completed:     [...document.querySelectorAll('.app-card.done')].map(c => c.querySelector('.app-name').textContent).join(', ') || 'None ticked',
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/mwvyzber', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        document.getElementById('successName').textContent = name;
+        document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+        document.getElementById('successScreen').classList.add('show');
+        document.getElementById('progressFill').style.width = '100%';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        alert('Something went wrong submitting the form. Please try again or contact Pervez directly.');
+      }
+    } catch(e) {
+      alert('Network error. Please check your connection and try again.');
+    }
+  }
+
+  // Clear errors on input
+  document.querySelectorAll('.field-input, .field-select, .field-textarea').forEach(el => {
+    el.addEventListener('input', () => {
+      el.closest('.field-group')?.classList.remove('has-error');
+    });
+  });
+</script>
+</body>
+</html>
