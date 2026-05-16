@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zest Lighting — Employee Onboarding</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --gold: #996D00;
@@ -21,8 +21,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #F1F1F1;
     color: var(--dark);
     min-height: 100vh;
     padding: 0 0 80px;
@@ -30,18 +30,18 @@
 
   /* ── Header ── */
   .header {
-    background: var(--black);
+    background: #333333;
     padding: 28px 40px;
     display: flex;
     align-items: center;
     gap: 16px;
   }
   .header-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #FFFFFF;
     text-transform: uppercase;
   }
   .header-divider {
@@ -92,12 +92,14 @@
     margin-bottom: 12px;
   }
   .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 36px;
-    font-weight: 600;
-    color: var(--black);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #1A1A1A;
     line-height: 1.2;
     margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
   .section-desc {
     font-size: 14px;
@@ -133,7 +135,7 @@
     background: transparent;
     padding: 10px 0;
     font-size: 15px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: var(--dark);
     outline: none;
     transition: border-color 0.2s;
@@ -401,7 +403,7 @@
     border-top: 1px solid var(--border);
   }
   .btn {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -412,10 +414,10 @@
     transition: all 0.2s;
   }
   .btn-primary {
-    background: var(--gold);
+    background: #333333;
     color: white;
   }
-  .btn-primary:hover { background: #7A5700; }
+  .btn-primary:hover { background: #996D00; }
   .btn-secondary {
     background: transparent;
     color: var(--grey);
@@ -423,10 +425,10 @@
   }
   .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
   .btn-submit {
-    background: var(--black);
+    background: #1A1A1A;
     color: white;
   }
-  .btn-submit:hover { background: var(--gold); }
+  .btn-submit:hover { background: #996D00; }
 
   /* Step dots */
   .step-dots {
@@ -467,10 +469,13 @@
     font-size: 28px;
   }
   .success-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 36px;
-    color: var(--black);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1A1A1A;
     margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
   .success-desc {
     font-size: 14px;
@@ -732,6 +737,16 @@
           <div class="app-name">Slack — Team Communication</div>
           <div class="app-desc">This is where we communicate as a team. Sign up and install on phone and desktop.</div>
           <a href="https://slack.com" target="_blank" class="app-link" onclick="event.stopPropagation()">slack.com →</a>
+        </div>
+        <div class="app-check"></div>
+      </div>
+
+      <div class="app-card" id="app-asana" onclick="toggleApp('app-asana')">
+        <div class="app-icon" style="background:#F06A6A">✅</div>
+        <div class="app-info">
+          <div class="app-name">Asana — Task Management</div>
+          <div class="app-desc">Where we set up, assign, and track all tasks. Sign up and install on phone and desktop.</div>
+          <a href="https://asana.com" target="_blank" class="app-link" onclick="event.stopPropagation()">asana.com →</a>
         </div>
         <div class="app-check"></div>
       </div>
