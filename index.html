@@ -271,6 +271,78 @@
     margin-top: 1px;
   }
 
+  /* ── Handbook download card ── */
+  .handbook-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 28px;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .handbook-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 2px 12px rgba(153, 109, 0, 0.08);
+  }
+  .handbook-icon {
+    width: 46px;
+    height: 46px;
+    background: var(--gold);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .handbook-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: white;
+  }
+  .handbook-info { flex: 1; }
+  .handbook-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 3px;
+    letter-spacing: 0.3px;
+  }
+  .handbook-sub {
+    font-size: 12px;
+    color: var(--grey);
+    line-height: 1.5;
+  }
+  .handbook-cta {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .handbook-cta svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--gold);
+    fill: none;
+  }
+  .handbook-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
   /* Checkbox acknowledge */
   .ack-wrap {
     display: flex;
@@ -501,6 +573,7 @@
     .field-row { grid-template-columns: 1fr; }
     .header { padding: 20px 20px; }
     .section-title { font-size: 28px; }
+    .handbook-cta span { display: none; }
   }
 </style>
 </head>
@@ -548,7 +621,7 @@
         <input class="field-input" id="dob" type="date" required>
         <div class="field-error">Please enter your date of birth</div>
       </div>
-      </div>
+    </div>
 
     <div class="field-group" id="fg-gender">
       <label class="field-label">Gender <span class="req">*</span></label>
@@ -687,26 +760,54 @@
     <div class="section-intro">
       <div class="section-label">Section 2 of 3 &nbsp;·&nbsp; Getting to Know Us</div>
       <div class="section-title">How we work together</div>
-      <div class="section-desc">Before you start, please read through our work rules carefully. These help us stay aligned and communicate well as a team.</div>
+      <div class="section-desc">Before you start, please download and read the VA Staff Handbook, then review our core work rules below. These help us stay aligned and communicate well as a team.</div>
     </div>
+
+    <!-- Handbook Download Card -->
+    <div class="handbook-label">Required Reading</div>
+    <a class="handbook-card" href="https://docs.google.com/spreadsheets/d/1DhVcaaKZDYy4B91hc-XGT4Z4RvOaMhRYmD9cK9UAxew/edit?usp=drive_link" target="_blank" rel="noopener noreferrer">
+      <div class="handbook-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+          <polyline points="14 2 14 8 20 8" style="fill:rgba(255,255,255,0.3)"/>
+          <line x1="12" y1="18" x2="12" y2="12" style="stroke:white;stroke-width:2;fill:none;stroke-linecap:round"/>
+          <polyline points="9 15 12 18 15 15" style="stroke:white;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"/>
+        </svg>
+      </div>
+      <div class="handbook-info">
+        <div class="handbook-title">VA Staff Handbook — Zest Lighting</div>
+        <div class="handbook-sub">Please read this in full before proceeding. Covers your role, expectations, leave policy, and code of conduct.</div>
+      </div>
+      <div class="handbook-cta">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Download</span>
+      </div>
+    </a>
 
     <div class="rules-box">
       <ol>
-        <li>Keep communication active during working hours — respond to messages promptly and let the team know you're available.</li>
-        <li>Keep the team updated on what task you are currently working on throughout the day.</li>
-        <li>At the end of each working day, submit a brief summary of what you have completed and report to your manager.</li>
+        <li><strong>Presence & check-in</strong> — Set your Slack status to 🟢 Working when your shift starts, 🔴 Away on breaks, and ✅ Done when you finish. Post your morning check-in in #team-check-in at the start of every shift using the pinned workflow.</li>
+        <li><strong>Communication</strong> — Reply to Slack messages within 30 minutes during your shift. Ask questions early — never guess on orders, pricing, stock, payments, or customer complaints. Give context when you ask: order number, what you already checked, and the exact question.</li>
+        <li><strong>Tasks & EOD report</strong> — Keep Asana updated as you go. Slack updates do not replace the task record. Before finishing each shift, complete the Team Check-Out workflow in #team-check-in with a short bullet summary of what was completed, anything carrying over, and any issues.</li>
+        <li><strong>Customer messages</strong> — Proofread before sending. Be clear, polite, and specific. Never promise dispatch times, discounts, or refunds without manager approval.</li>
+        <li><strong>Security & conduct</strong> — Never share logins, customer data, or internal documents outside approved systems. Do not use company tools for personal use. Flag mistakes immediately — a cover-up is treated more seriously than the original error.</li>
+        <li><strong>Invoicing</strong> — Submit your invoice every Monday via email and Slack DM to your manager. No invoice, no payment.</li>
       </ol>
     </div>
 
     <label class="ack-wrap" id="ackWrap" onclick="toggleAck()">
       <div class="ack-box" id="ackBox"></div>
-      <div class="ack-text">I have read and understood the work rules above, and I agree to follow them as part of my role at Zest Lighting.</div>
+      <div class="ack-text">I have downloaded and read the VA Staff Handbook, and I have read and understood the work rules above. I agree to follow them as part of my role at Zest Lighting.</div>
     </label>
     <div class="field-error" id="ack-error" style="margin-top:-20px; margin-bottom:20px;">Please acknowledge the work rules to continue</div>
 
     <div class="field-group">
       <label class="field-label">Any questions or comments?</label>
-      <textarea class="field-textarea" id="comments" placeholder="Optional — let us know if you have any questions about the work rules..."></textarea>
+      <textarea class="field-textarea" id="comments" placeholder="Optional — let us know if you have any questions about the handbook or work rules..."></textarea>
     </div>
 
     <div class="nav-bar">
@@ -737,16 +838,6 @@
           <div class="app-name">Slack — Team Communication</div>
           <div class="app-desc">This is where we communicate as a team. Sign up and install on phone and desktop.</div>
           <a href="https://slack.com" target="_blank" class="app-link" onclick="event.stopPropagation()">slack.com →</a>
-        </div>
-        <div class="app-check"></div>
-      </div>
-
-      <div class="app-card" id="app-asana" onclick="toggleApp('app-asana')">
-        <div class="app-icon" style="background:#F06A6A">✅</div>
-        <div class="app-info">
-          <div class="app-name">Asana — Task Management</div>
-          <div class="app-desc">Where we set up, assign, and track all tasks. Sign up and install on phone and desktop.</div>
-          <a href="https://asana.com" target="_blank" class="app-link" onclick="event.stopPropagation()">asana.com →</a>
         </div>
         <div class="app-check"></div>
       </div>
@@ -819,9 +910,13 @@
     <div class="section-title success-title">You're all set!</div>
     <p class="success-desc">
       Thank you, <strong id="successName"></strong>.<br>
-      Your onboarding form has been submitted. We'll be in touch shortly with everything you need for your first day.<br><br>
-      Welcome to the Zest Lighting team 🎉
+      Your onboarding form has been submitted. We'll be in touch shortly with everything you need for your first day.
     </p>
+    <a href="https://docs.google.com/spreadsheets/d/1DhVcaaKZDYy4B91hc-XGT4Z4RvOaMhRYmD9cK9UAxew/edit?usp=drive_link" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:14px 28px;background:#333333;color:white;text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:500;border-radius:2px;transition:background 0.2s;" onmouseover="this.style.background='#996D00'" onmouseout="this.style.background='#333333'">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Start Your Training →
+    </a>
+    <p style="font-size:12px;color:#BBBBBB;margin-top:16px;">Welcome to the Zest Lighting team 🎉</p>
   </div>
 
 </div>
@@ -883,7 +978,6 @@
       }
     });
 
-    // Gender
     if (!document.querySelector('input[name="gender"]:checked')) {
       document.getElementById('gender-error').style.display = 'block';
       valid = false;
@@ -891,7 +985,6 @@
       document.getElementById('gender-error').style.display = 'none';
     }
 
-    // Payment frequency
     if (!document.querySelector('input[name="payment"]:checked')) {
       document.getElementById('payment-error').style.display = 'block';
       valid = false;
@@ -899,7 +992,6 @@
       document.getElementById('payment-error').style.display = 'none';
     }
 
-    // Payment method
     if (!document.querySelector('input[name="paymethod"]:checked')) {
       document.getElementById('paymethod-error').style.display = 'block';
       valid = false;
@@ -907,7 +999,6 @@
       document.getElementById('paymethod-error').style.display = 'none';
     }
 
-    // Timezone
     if (!document.querySelector('input[name="timezone"]:checked')) {
       document.getElementById('timezone-error').style.display = 'block';
       valid = false;
@@ -930,7 +1021,6 @@
   async function submitForm() {
     const name = document.getElementById('fullname').value || 'there';
 
-    // Gather all form data
     const data = {
       full_name:          document.getElementById('fullname').value,
       date_of_birth:      document.getElementById('dob').value,
@@ -971,7 +1061,6 @@
     }
   }
 
-  // Clear errors on input
   document.querySelectorAll('.field-input, .field-select, .field-textarea').forEach(el => {
     el.addEventListener('input', () => {
       el.closest('.field-group')?.classList.remove('has-error');
