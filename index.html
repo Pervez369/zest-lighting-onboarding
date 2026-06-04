@@ -252,9 +252,10 @@
     gap: 14px;
     align-items: flex-start;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--dark);
   }
+  .rules-box ol li .rule-text { flex: 1; }
   .rules-box ol li::before {
     content: counter(rule);
     min-width: 22px;
@@ -765,7 +766,7 @@
 
     <!-- Handbook Download Card -->
     <div class="handbook-label">Required Reading</div>
-    <a class="handbook-card" href="https://docs.google.com/spreadsheets/d/1DhVcaaKZDYy4B91hc-XGT4Z4RvOaMhRYmD9cK9UAxew/edit?usp=drive_link" target="_blank" rel="noopener noreferrer">
+    <a class="handbook-card" href="https://drive.google.com/file/d/1f_iDmeKIRUE9uI9yBzX8Sffzy3Lx3QOi/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
       <div class="handbook-icon">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
@@ -790,12 +791,12 @@
 
     <div class="rules-box">
       <ol>
-        <li><strong>Presence & check-in</strong> — Set your Slack status to 🟢 Working when your shift starts, 🔴 Away on breaks, and ✅ Done when you finish. Post your morning check-in in #team-check-in at the start of every shift using the pinned workflow.</li>
-        <li><strong>Communication</strong> — Reply to Slack messages within 30 minutes during your shift. Ask questions early — never guess on orders, pricing, stock, payments, or customer complaints. Give context when you ask: order number, what you already checked, and the exact question.</li>
-        <li><strong>Tasks & EOD report</strong> — Keep Asana updated as you go. Slack updates do not replace the task record. Before finishing each shift, complete the Team Check-Out workflow in #team-check-in with a short bullet summary of what was completed, anything carrying over, and any issues.</li>
-        <li><strong>Customer messages</strong> — Proofread before sending. Be clear, polite, and specific. Never promise dispatch times, discounts, or refunds without manager approval.</li>
-        <li><strong>Security & conduct</strong> — Never share logins, customer data, or internal documents outside approved systems. Do not use company tools for personal use. Flag mistakes immediately — a cover-up is treated more seriously than the original error.</li>
-        <li><strong>Invoicing</strong> — Submit your invoice every Monday via email and Slack DM to your manager. No invoice, no payment.</li>
+        <li><div class="rule-text"><span style="font-weight:600">Presence &amp; check-in</span> — Set your Slack status to 🟢 Working when your shift starts, 🔴 Away on breaks, and ✅ Done when you finish. Post your morning check-in in #team-check-in at the start of every shift using the pinned workflow.</div></li>
+        <li><div class="rule-text"><span style="font-weight:600">Communication</span> — Reply to Slack messages within 30 minutes during your shift. Ask questions early — never guess on orders, pricing, stock, payments, or customer complaints. Give context when you ask: order number, what you already checked, and the exact question.</div></li>
+        <li><div class="rule-text"><span style="font-weight:600">Tasks &amp; EOD report</span> — Keep Asana updated as you go. Slack updates do not replace the task record. Before finishing each shift, complete the Team Check-Out workflow in #team-check-in with a short bullet summary of what was completed, anything carrying over, and any issues.</div></li>
+        <li><div class="rule-text"><span style="font-weight:600">Customer messages</span> — Proofread before sending. Be clear, polite, and specific. Never promise dispatch times, discounts, or refunds without manager approval.</div></li>
+        <li><div class="rule-text"><span style="font-weight:600">Security &amp; conduct</span> — Never share logins, customer data, or internal documents outside approved systems. Do not use company tools for personal use. Flag mistakes immediately — a cover-up is treated more seriously than the original error.</div></li>
+        <li><div class="rule-text"><span style="font-weight:600">Invoicing</span> — Submit your invoice every Monday via email and Slack DM to your manager. No invoice, no payment.</div></li>
       </ol>
     </div>
 
